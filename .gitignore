@@ -1,0 +1,5 @@
+.pyc
+.c9
+*.log
+*.pid
+*.db
