@@ -3,3 +3,6 @@
 *.log
 *.pid
 *.db
+proj/*.log
+demoapp/*.log
+proj/settings_secret.py

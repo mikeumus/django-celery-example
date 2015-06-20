@@ -5,9 +5,11 @@ from __future__ import absolute_import
 # for relative imports by default.
 
 # Celery settings
-
 import djcelery
 djcelery.setup_loader()
+
+# http://fearofcode.github.io/blog/2013/01/15/how-to-scrub-sensitive-information-from-django-settings-dot-py-files/
+from proj.settings_secret import *
 
 # BROKER_URL = 'amqp://guest:guest@localhost//'
 BROKER_URL = 'django://'
@@ -17,6 +19,7 @@ BROKER_URL = 'django://'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend' # http://docs.celeryproject.org/en/master/django/first-steps-with-django.html#using-the-django-orm-cache-as-a-result-backend
 
 # Django settings for proj project.
 
@@ -47,7 +50,7 @@ DATABASES = {
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'US/Eastern'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -99,9 +102,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = 'x2$s&amp;0z2xehpnt_99i8q3)4)t*5q@+n(+6jrqz4@rt%a8fdf+!'
-
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -114,8 +114,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # simple clickjacking protection:
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 ROOT_URLCONF = 'proj.urls'
@@ -137,15 +137,12 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
-    'kombu.transport.django', 
-    # 'kombu.transport.django.KombuAppConfig',
+    #'kombu.transport.django', 
+    'kombu.transport.django.KombuAppConfig',
     'djcelery',
     'demoapp',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admin', # https://docs.djangoproject.com/en/1.8/ref/contrib/admin/
+    # 'django.contrib.admindocs', # https://docs.djangoproject.com/en/1.8/ref/contrib/admin/admindocs/
 )
 
 # A sample logging configuration. The only tangible logging
