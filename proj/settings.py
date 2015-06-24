@@ -11,7 +11,9 @@ import djcelery
 djcelery.setup_loader()
 
 # http://fearofcode.github.io/blog/2013/01/15/how-to-scrub-sensitive-information-from-django-settings-dot-py-files/
-from proj.settings_secret import *
+# rom proj.settings_secret import *
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'x2$s&amp;0z2xehpnt_99i8q3)4)t*5q@+n(+6jrqz4@rt%a8fdf+!'
 
 # c9IP = os.environ.get('IP')
 # BROKER_URL = 'amqp://guest:guest@{}//'.format(c9IP)
