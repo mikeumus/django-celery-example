@@ -4,6 +4,8 @@ from __future__ import absolute_import
 # becomes `proj.celery.schedules` in Python 2.x since it allows
 # for relative imports by default.
 
+import os
+
 # Celery settings
 import djcelery
 djcelery.setup_loader()
@@ -11,8 +13,14 @@ djcelery.setup_loader()
 # http://fearofcode.github.io/blog/2013/01/15/how-to-scrub-sensitive-information-from-django-settings-dot-py-files/
 from proj.settings_secret import *
 
+# c9IP = os.environ.get('IP')
+# BROKER_URL = 'amqp://guest:guest@{}//'.format(c9IP)
 # BROKER_URL = 'amqp://guest:guest@localhost//'
-BROKER_URL = 'django://'
+# BROKER_URL = 'django://' # warning: slow, experiemental option
+BROKER_URL = 'redis://localhost:6379/0' # http://docs.celeryproject.org/en/latest/getting-started/brokers/redis.html#results
+BROKER_TRANSPORT_OPTIONS = {'fanout_prefix': True} # http://docs.celeryproject.org/en/latest/getting-started/brokers/redis.html#caveats
+
+BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}  # 1 hour for redis: http://docs.celeryproject.org/en/latest/getting-started/brokers/redis.html#visibility-timeout
 
 #: Only add pickle to this list if your broker is secured
 #: from unwanted access (see userguide/security.html)
@@ -20,6 +28,7 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend' # http://docs.celeryproject.org/en/master/django/first-steps-with-django.html#using-the-django-orm-cache-as-a-result-backend
+CELERY_SEND_EVENTS = True # http://docs.celeryproject.org/en/latest/configuration.html?highlight=events#celery-send-events
 
 # Django settings for proj project.
 

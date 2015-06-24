@@ -5,4 +5,7 @@
 *.db
 proj/*.log
 demoapp/*.log
-proj/settings_secret.py
+
+# a way to hide your django secret key from github see:
+# http://fearofcode.github.io/blog/2013/01/15/how-to-scrub-sensitive-information-from-django-settings-dot-py-files/
+proj/settings_secret.py 

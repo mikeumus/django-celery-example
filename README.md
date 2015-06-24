@@ -9,6 +9,7 @@
 - Starting tasks in the background with `celery multi`: http://docs.celeryproject.org/en/master/getting-started/next-steps.html?highlight=multi#in-the-background
  - `celery multi start w1 -A proj -l info`
  - Starting a process locally in the terminal: `celery -A proj worker -l info`
+ - Starting event camera: `celery events --camera=djcelery.snapshot.Camera`
 
 _ _ _
 
