@@ -1,15 +1,32 @@
-### Code Playground at C9 - https://ide.c9.io/mikeumus/celery-django-example
+# Django-Celery Example
+![django admin with django-celery tasks dashboard](https://0839a63ecb79fafd04ced14c58bd0806808b39ce.googledrive.com/host/0B9LVk4xbDIJTYmZXS2p3RVo0OXM)
+
+_ _ _
+
+#### Get Django-Celery Working!
+1. Install [Python](https://www.python.org/downloads/) (if you're in linux, python 2.7 is already installed), [pip](https://pip.pypa.io/en/latest/installing.html), [django](https://docs.djangoproject.com/en/1.8/topics/install/) (and run `./manage.py syncdb`), [celery](http://www.celeryproject.org/install/), and django-celery
+2. Choose your celery broker and install that: [RabbitMQ](http://celery.readthedocs.org/en/latest/getting-started/brokers/rabbitmq.html), [Redis](http://celery.readthedocs.org/en/latest/getting-started/brokers/redis.html), [others...](http://celery.readthedocs.org/en/latest/getting-started/brokers/)
+3. Start all the things (processes):
+ 3.1 Start your `redis-server` or `rabbitmq-server`, ect...
+ 3.2 Start Django: `./manage.py runserver` (and `./manage.py runserver $IP:$PORT` in Cloud 9)
+ 3.4 Start the Celery Event Camera via: `./manage.py celery events --camera=djcelery.snapshot.Camera` 
+ 3.4 Start `celeryd` with celery beat (`-B`): `./manage.py celeryd -B -l INFO`  
+4. Run a task:
+ 4.1 `./manage.py shell`
+ 4.2 `from demoapp.tasks import add`
+ 4.3 `add.delay(2,2)`
+5. and you should then see things happening in the Celery Beat process and in the [Django Admin](https://docs.djangoproject.com/en/1.8/ref/contrib/admin/)
+
+_ _ _
+
+### Code Playground at C9
+https://ide.c9.io/mikeumus/celery-django-example
 
 ##### Celery Processes Notes
-- Celery + Django Project Template by @dvl: https://github.com/dvl/celerytest 
- - Thanks @dvl :)
- - and celery docs django template: https://github.com/celery/celery/tree/3.1/examples/django
-- Retry Policy
- - http://docs.celeryproject.org/en/master/userguide/calling.html#retry-policy 
 - Starting tasks in the background with `celery multi`: http://docs.celeryproject.org/en/master/getting-started/next-steps.html?highlight=multi#in-the-background
- - `celery multi start w1 -A proj -l info`
- - Starting a process locally in the terminal: `celery -A proj worker -l info`
- - Starting event camera: `celery events --camera=djcelery.snapshot.Camera`
+ - `./manage.py celery multi start w1 -A proj -l info`
+ - Starting a process locally in the terminal: `./manage.py celery -A proj worker -l info`
+ - Starting event camera: `./manage.py celery events --camera=djcelery.snapshot.Camera`
 
 _ _ _
 
