@@ -7,15 +7,15 @@ _ _ _
 1. Install [Python](https://www.python.org/downloads/) (if you're in linux, python 2.7 is already installed), [pip](https://pip.pypa.io/en/latest/installing.html), [django](https://docs.djangoproject.com/en/1.8/topics/install/) (and run `./manage.py syncdb`), [celery](http://www.celeryproject.org/install/), and django-celery
 2. Choose your celery broker and install that: [RabbitMQ](http://celery.readthedocs.org/en/latest/getting-started/brokers/rabbitmq.html), [Redis](http://celery.readthedocs.org/en/latest/getting-started/brokers/redis.html), [others...](http://celery.readthedocs.org/en/latest/getting-started/brokers/)
 3. Start all the things (processes):
- 3.1 Start your `redis-server` or `rabbitmq-server`, ect...
- 3.2 Start Django: `./manage.py runserver` (and `./manage.py runserver $IP:$PORT` in Cloud 9)
- 3.4 Start the Celery Event Camera via: `./manage.py celery events --camera=djcelery.snapshot.Camera` 
- 3.4 Start `celeryd` with celery beat (`-B`): `./manage.py celeryd -B -l INFO`  
-4. Run a task:
- 4.1 `./manage.py shell`
- 4.2 `from demoapp.tasks import add`
- 4.3 `add.delay(2,2)`
-5. and you should then see things happening in the Celery Beat process and in the [Django Admin](https://docs.djangoproject.com/en/1.8/ref/contrib/admin/)
+4. Start your `redis-server` or `rabbitmq-server`, ect...
+5. Start Django: `./manage.py runserver` (and `./manage.py runserver $IP:$PORT` in Cloud 9)
+6. Start the Celery Event Camera via: `./manage.py celery events --camera=djcelery.snapshot.Camera` 
+7. Start `celeryd` with celery beat (`-B`): `./manage.py celeryd -B -l INFO`  
+8. Run a task:
+9. `./manage.py shell`
+10. `from demoapp.tasks import add`
+11. `add.delay(2,2)`
+12. and you should then see things happening in the Celery Beat process and in the [Django Admin](https://docs.djangoproject.com/en/1.8/ref/contrib/admin/)
 
 _ _ _
 
