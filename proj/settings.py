@@ -17,20 +17,41 @@ SECRET_KEY = 'x2$s&amp;0z2xehpnt_99i8q3)4)t*5q@+n(+6jrqz4@rt%a8fdf+!'
 
 # c9IP = os.environ.get('IP')
 # BROKER_URL = 'amqp://guest:guest@{}//'.format(c9IP)
-# BROKER_URL = 'amqp://guest:guest@localhost//'
+# BROKER_URL = 'amqp://guest:guest@localhost:5672//'
 # BROKER_URL = 'django://' # warning: slow, experiemental option
-BROKER_URL = 'redis://localhost:6379/0' # http://docs.celeryproject.org/en/latest/getting-started/brokers/redis.html#results
-BROKER_TRANSPORT_OPTIONS = {'fanout_prefix': True} # http://docs.celeryproject.org/en/latest/getting-started/brokers/redis.html#caveats
+# BROKER_URL = 'redis://localhost:6379/0' # http://docs.celeryproject.org/en/latest/getting-started/brokers/redis.html#results
 
-BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}  # 1 hour for redis: http://docs.celeryproject.org/en/latest/getting-started/brokers/redis.html#visibility-timeout
+BROKER_HOST = "localhost"
+BROKER_BACKEND = "redis"
+BROKER_USER = ""
+BROKER_PASSWORD = ""
+BROKER_VHOST = "0"
+
+REDIS_HOST = "localhost"
+REDIS_PORT = 6379
+REDIS_DB = 0
+REDIS_CONNECT_RETRY = True
+
+
+# # http://docs.celeryproject.org/en/latest/getting-started/brokers/redis.html#caveats
+BROKER_TRANSPORT_OPTIONS = {
+    'fanout_prefix': True,
+    'visibility_timeout': 3600 # 1 hour for redis: http://docs.celeryproject.org/en/latest/getting-started/brokers/redis.html#visibility-timeout
+} 
 
 #: Only add pickle to this list if your broker is secured
 #: from unwanted access (see userguide/security.html)
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend' # http://docs.celeryproject.org/en/master/django/first-steps-with-django.html#using-the-django-orm-cache-as-a-result-backend
-CELERY_SEND_EVENTS = True # http://docs.celeryproject.org/en/latest/configuration.html?highlight=events#celery-send-events
+# CELERY_RESULT_BACKEND = 'redis'
+CELERY_RESULT_BACKEND = "djcelery.backends.database:DatabaseBackend" #django-celery database result backend
+# CELERY_RESULT_BACKEND='djcelery.backends.cache:CacheBackend' #django-celery cached database result backend
+CELERY_SEND_EVENTS = True
+CELERY_TASK_RESULT_EXPIRES = 10
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+#CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend' # http://docs.celeryproject.org/en/master/django/first-steps-with-django.html#using-the-django-orm-cache-as-a-result-backend
+#CELERY_SEND_EVENTS = True # http://docs.celeryproject.org/en/latest/configuration.html?highlight=events#celery-send-events
 
 # Django settings for proj project.
 
