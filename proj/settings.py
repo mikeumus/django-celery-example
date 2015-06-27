@@ -21,11 +21,11 @@ SECRET_KEY = 'x2$s&amp;0z2xehpnt_99i8q3)4)t*5q@+n(+6jrqz4@rt%a8fdf+!'
 # BROKER_URL = 'django://' # warning: slow, experiemental option
 # BROKER_URL = 'redis://localhost:6379/0' # http://docs.celeryproject.org/en/latest/getting-started/brokers/redis.html#results
 
-BROKER_HOST = "localhost"
+BROKER_URL = "localhost"
 BROKER_BACKEND = "redis"
 BROKER_USER = ""
 BROKER_PASSWORD = ""
-BROKER_VHOST = "0"
+# BROKER_VHOST = "0"
 
 REDIS_HOST = "localhost"
 REDIS_PORT = 6379
